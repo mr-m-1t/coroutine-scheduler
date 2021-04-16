@@ -2,7 +2,7 @@ plugins {
     kotlin("multiplatform") version "1.4.31"
 }
 
-group = "io.github.mr-m-1t"
+group = "io.github.mrm1t"
 version = "0.0.1"
 
 repositories {
