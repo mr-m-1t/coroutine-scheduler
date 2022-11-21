@@ -5,6 +5,7 @@ import io.github.mrm1t.coroutineScheduler.TopologicalSorter
 import io.github.mrm1t.coroutineScheduler.Vertex
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 
 
 class TopologicalSorterTest {
@@ -56,6 +57,11 @@ class TopologicalSorterTest {
                            DirectedEdge("8", "9"))
 
         val sortedVertices = sut.performTopologicalSort(vertices, edges)
-        println(sortedVertices)
+        edges.forEach { edge ->
+            assertTrue("item with tag `${edge.sourceTag}` should be before item with tag `${edge.destTag}`!") {
+                sortedVertices.indexOfFirst { it.tag == edge.sourceTag } <
+                sortedVertices.indexOfFirst { it.tag == edge.destTag }
+            }
+        }
     }
 }
