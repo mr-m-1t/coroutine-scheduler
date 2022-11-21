@@ -2,9 +2,6 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
 }
 
-group = "io.github.mrm1t"
-version = "0.0.1"
-
 // TODO: implement coroutine scheduling
 // TODO: setup CI using GitHub actions
 // TODO: add ios target
