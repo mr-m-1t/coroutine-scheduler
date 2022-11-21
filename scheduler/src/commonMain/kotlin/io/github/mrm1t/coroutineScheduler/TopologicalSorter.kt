@@ -17,8 +17,6 @@ class TopologicalSorter<T> {
         vertices: List<Vertex<T>>,
         edges: List<DirectedEdge>,
     ): List<Vertex<T>> {
-        // TODO: ensure all edge tags have corresponding vertex?
-        // TODO: ensure vertex tags are unique?
         val sortedVertices = mutableListOf<Vertex<T>>()
         val verticesWithNoIncoming = mutableListOf<Vertex<T>>()
         val edgesRemainingInGraph = edges.toMutableList()
