@@ -32,7 +32,7 @@ class TaskOrchestratorTest {
             Vertex("8", Task { genPrime(500_000) }),
             Vertex("2", Task { genPrime(1_000) }),
             Vertex("9", Task { genPrime(1_000) }),
-            Vertex("10", Task { genPrime(1_000) }),
+            Vertex("10", Task { genPrime(1_000) })
         )
         val edges = listOf(
             DirectedEdge("5", "11"),

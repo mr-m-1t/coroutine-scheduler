@@ -13,7 +13,10 @@ class TopologicalSorter<T> {
      * @throws[IllegalArgumentException] if the given graph has no vertices with in-degree of 0
      * @throws[IllegalStateException] if the given graph has a cycle
      */
-    fun performTopologicalSort(vertices: List<Vertex<T>>, edges: List<DirectedEdge>): List<Vertex<T>>{
+    fun performTopologicalSort(
+        vertices: List<Vertex<T>>,
+        edges: List<DirectedEdge>,
+    ): List<Vertex<T>> {
         // TODO: ensure all edge tags have corresponding vertex?
         // TODO: ensure vertex tags are unique?
         val sortedVertices = mutableListOf<Vertex<T>>()
@@ -47,7 +50,7 @@ class TopologicalSorter<T> {
         }
 
         if (edgesRemainingInGraph.isNotEmpty()) {
-            throw IllegalStateException("Graph is cyclic! Remaining edges: ${edges}")
+            throw IllegalStateException("Graph is cyclic! Remaining edges: $edges")
         }
 
         return sortedVertices
