@@ -22,7 +22,15 @@ class TaskOrchestratorTest {
         }.join()
     }
 
-    private fun demoDirectUsage() = runTest {
+    @Test
+    fun sampleTestDemonstratingDslUsageMultiThreaded() = runTest {
+        // specifying a dispatcher since the default one is single-threaded
+        launch(Dispatchers.Default) {
+            demoDslUsage()
+        }.join()
+    }
+
+    private suspend fun demoDirectUsage() {
         val vertices = listOf<Task>(
             Task().apply {
                 tag = "5"
@@ -70,6 +78,48 @@ class TaskOrchestratorTest {
         )
 
         TaskOrchestrator(vertices, edges).start()
+    }
+
+    private suspend fun demoDslUsage() {
+        TaskOrchestrator.taskOrchestrator {
+            addTask {
+                tag("5")
+                block { genPrime(1_000) }
+            }
+            addTask {
+                tag("7")
+                block { genPrime(400) }
+            }
+            addTask {
+                tag("3")
+                block { genPrime(1_000) }
+            }
+            addTask {
+                tag("11")
+                dependsOn("5", "7")
+                block { genPrime(1_000); }
+            }
+            addTask {
+                tag("8")
+                dependsOn("3", "7")
+                block { genPrime(500_000) }
+            }
+            addTask {
+                tag("2")
+                dependsOn("11")
+                block { genPrime(1_000) }
+            }
+            addTask {
+                tag("9")
+                dependsOn("8", "11")
+                block { genPrime(1_000) }
+            }
+            addTask {
+                tag("10")
+                dependsOn("3", "11")
+                block { genPrime(1_000) }
+            }
+        }.start()
     }
 
     private suspend fun genPrime(num: Int) = coroutineScope {
