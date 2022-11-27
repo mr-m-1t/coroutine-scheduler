@@ -1,5 +1,8 @@
 package io.github.mrm1t.coroutineScheduler
 
+import io.github.mrm1t.coroutineScheduler.graph.DirectedEdge
+import io.github.mrm1t.coroutineScheduler.graph.TopologicalSorter
+import io.github.mrm1t.coroutineScheduler.graph.Vertex
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.async

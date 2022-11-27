@@ -1,8 +1,8 @@
-package coroutineScheduler
+package coroutineScheduler.graph
 
-import io.github.mrm1t.coroutineScheduler.DirectedEdge
-import io.github.mrm1t.coroutineScheduler.TopologicalSorter
-import io.github.mrm1t.coroutineScheduler.Vertex
+import io.github.mrm1t.coroutineScheduler.graph.DirectedEdge
+import io.github.mrm1t.coroutineScheduler.graph.TopologicalSorter
+import io.github.mrm1t.coroutineScheduler.graph.Vertex
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue

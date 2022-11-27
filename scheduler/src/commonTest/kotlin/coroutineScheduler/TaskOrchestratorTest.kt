@@ -1,9 +1,9 @@
 package coroutineScheduler
 
-import io.github.mrm1t.coroutineScheduler.DirectedEdge
+import io.github.mrm1t.coroutineScheduler.graph.DirectedEdge
 import io.github.mrm1t.coroutineScheduler.Task
 import io.github.mrm1t.coroutineScheduler.TaskOrchestrator
-import io.github.mrm1t.coroutineScheduler.Vertex
+import io.github.mrm1t.coroutineScheduler.graph.Vertex
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.coroutineScope
