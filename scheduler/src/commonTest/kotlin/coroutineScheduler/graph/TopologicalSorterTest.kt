@@ -8,11 +8,11 @@ import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
 class TopologicalSorterTest {
-    private val sut = TopologicalSorter<Int>()
+    private val sut = TopologicalSorter()
 
     @Test
     fun givenCyclicGraphWithNoRootNodesWhenPerformTopologicalSortThenThrowException() {
-        val vertices = listOf(Vertex("foo", 1), Vertex("bar", 1))
+        val vertices = listOf(IntVertex("foo", 1), IntVertex("bar", 1))
         val edges = listOf(DirectedEdge("foo", "bar"), DirectedEdge("bar", "foo"))
 
         assertFailsWith<IllegalArgumentException> {
@@ -23,9 +23,9 @@ class TopologicalSorterTest {
     @Test
     fun givenCyclicGraphWithRootNodeWhenPerformTopologicalSortThenThrowException() {
         val vertices = listOf(
-            Vertex("foo", 1),
-            Vertex("bar", 1),
-            Vertex("baz", 3)
+            IntVertex("foo", 1),
+            IntVertex("bar", 1),
+            IntVertex("baz", 3)
         )
         val edges = listOf(
             DirectedEdge("foo", "bar"),
@@ -42,14 +42,14 @@ class TopologicalSorterTest {
     fun givenAcyclicGraphWhenPerformTopologicalSortThenReturnVerticesInSortedOrder() {
         // example from https://en.wikipedia.org/wiki/Topological_sorting
         val vertices = listOf(
-            Vertex("5", 5),
-            Vertex("7", 7),
-            Vertex("3", 3),
-            Vertex("11", 11),
-            Vertex("8", 8),
-            Vertex("2", 2),
-            Vertex("9", 9),
-            Vertex("10", 10)
+            IntVertex("5", 5),
+            IntVertex("7", 7),
+            IntVertex("3", 3),
+            IntVertex("11", 11),
+            IntVertex("8", 8),
+            IntVertex("2", 2),
+            IntVertex("9", 9),
+            IntVertex("10", 10)
         )
         val edges = listOf(
             DirectedEdge("5", "11"),
@@ -71,4 +71,6 @@ class TopologicalSorterTest {
             }
         }
     }
+
+    private inner class IntVertex(override val tag: String, val value: Int) : Vertex
 }

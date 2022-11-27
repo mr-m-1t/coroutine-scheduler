@@ -1,8 +1,8 @@
 package coroutineScheduler
 
-import io.github.mrm1t.coroutineScheduler.graph.DirectedEdge
 import io.github.mrm1t.coroutineScheduler.Task
 import io.github.mrm1t.coroutineScheduler.TaskOrchestrator
+import io.github.mrm1t.coroutineScheduler.graph.DirectedEdge
 import io.github.mrm1t.coroutineScheduler.graph.Vertex
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -24,15 +24,39 @@ class TaskOrchestratorTest {
     }
 
     private fun demoUsage() = runTest {
-        val vertices = listOf(
-            Vertex("5", Task { genPrime(1_000) }),
-            Vertex("7", Task { genPrime(400) }),
-            Vertex("3", Task { genPrime(1_000) }),
-            Vertex("11", Task { genPrime(1_000); }),
-            Vertex("8", Task { genPrime(500_000) }),
-            Vertex("2", Task { genPrime(1_000) }),
-            Vertex("9", Task { genPrime(1_000) }),
-            Vertex("10", Task { genPrime(1_000) })
+        val vertices = listOf<Task>(
+            Task().apply {
+                tag = "5"
+                block = { genPrime(1_000) }
+            },
+            Task().apply {
+                tag = "7"
+                block = { genPrime(400) }
+            },
+            Task().apply {
+                tag = "3"
+                block = { genPrime(1_000) }
+            },
+            Task().apply {
+                tag = "11"
+                block = { genPrime(1_000); }
+            },
+            Task().apply {
+                tag = "8"
+                block = { genPrime(500_000) }
+            },
+            Task().apply {
+                tag = "2"
+                block = { genPrime(1_000) }
+            },
+            Task().apply {
+                tag = "9"
+                block = { genPrime(1_000) }
+            },
+            Task().apply {
+                tag = "10"
+                block = { genPrime(1_000) }
+            }
         )
         val edges = listOf(
             DirectedEdge("5", "11"),

@@ -1,6 +1,6 @@
 package io.github.mrm1t.coroutineScheduler.graph
 
-class TopologicalSorter<T> {
+class TopologicalSorter {
 
     /**
      * Performs a topological sort of the given graph using Kuhn's algorithm.
@@ -13,12 +13,12 @@ class TopologicalSorter<T> {
      * @throws[IllegalArgumentException] if the given graph has no vertices with in-degree of 0
      * @throws[IllegalStateException] if the given graph has a cycle
      */
-    fun performTopologicalSort(
-        vertices: List<Vertex<T>>,
+    fun <T: Vertex>performTopologicalSort(
+        vertices: List<T>,
         edges: List<DirectedEdge>,
-    ): List<Vertex<T>> {
-        val sortedVertices = mutableListOf<Vertex<T>>()
-        val verticesWithNoIncoming = mutableListOf<Vertex<T>>()
+    ): List<T> {
+        val sortedVertices = mutableListOf<T>()
+        val verticesWithNoIncoming = mutableListOf<T>()
         val edgesRemainingInGraph = edges.toMutableList()
         val verticesInGraph = vertices.toMutableList()
 
