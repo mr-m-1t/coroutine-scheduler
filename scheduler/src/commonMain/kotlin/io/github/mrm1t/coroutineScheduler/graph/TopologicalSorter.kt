@@ -13,7 +13,7 @@ class TopologicalSorter {
      * @throws[IllegalArgumentException] if the given graph has no vertices with in-degree of 0
      * @throws[IllegalStateException] if the given graph has a cycle
      */
-    fun <T: Vertex>performTopologicalSort(
+    fun <T : Vertex> performTopologicalSort(
         vertices: List<T>,
         edges: List<DirectedEdge>,
     ): List<T> {

@@ -3,7 +3,6 @@ package coroutineScheduler
 import io.github.mrm1t.coroutineScheduler.Task
 import io.github.mrm1t.coroutineScheduler.TaskOrchestrator
 import io.github.mrm1t.coroutineScheduler.graph.DirectedEdge
-import io.github.mrm1t.coroutineScheduler.graph.Vertex
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.coroutineScope
@@ -16,14 +15,14 @@ import kotlin.test.Test
 class TaskOrchestratorTest {
 
     @Test
-    fun sampleTestDemonstratingUsageMultiThreaded() = runTest {
+    fun sampleTestDemonstratingDirectUsageMultiThreaded() = runTest {
         // specifying a dispatcher since the default one is single-threaded
         launch(Dispatchers.Default) {
-            demoUsage()
+            demoDirectUsage()
         }.join()
     }
 
-    private fun demoUsage() = runTest {
+    private fun demoDirectUsage() = runTest {
         val vertices = listOf<Task>(
             Task().apply {
                 tag = "5"
