@@ -35,11 +35,11 @@ class TaskOrchestratorTest {
     private suspend fun demoDirectUsage() {
         val vertices = listOf<Task>(
             Task().apply {
-                tag = "5"
+                tag = "1"
                 block = { doWork(10) }
             },
             Task().apply {
-                tag = "7"
+                tag = "2"
                 block = { doWork(40) }
             },
             Task().apply {
@@ -47,36 +47,21 @@ class TaskOrchestratorTest {
                 block = { doWork(100) }
             },
             Task().apply {
-                tag = "11"
+                tag = "4"
                 block = { doWork(10); }
             },
             Task().apply {
-                tag = "8"
+                tag = "5"
                 block = { doWork(50) }
             },
-            Task().apply {
-                tag = "2"
-                block = { doWork(100) }
-            },
-            Task().apply {
-                tag = "9"
-                block = { doWork(10) }
-            },
-            Task().apply {
-                tag = "10"
-                block = { doWork(10) }
-            }
         )
         val edges = listOf(
-            DirectedEdge("5", "11"),
-            DirectedEdge("7", "11"),
-            DirectedEdge("7", "8"),
-            DirectedEdge("3", "8"),
-            DirectedEdge("3", "10"),
-            DirectedEdge("11", "2"),
-            DirectedEdge("11", "9"),
-            DirectedEdge("11", "10"),
-            DirectedEdge("8", "9")
+            DirectedEdge("1", "2"),
+            DirectedEdge("1", "3"),
+            DirectedEdge("2", "4"),
+            DirectedEdge("3", "4"),
+            DirectedEdge("2", "5"),
+            DirectedEdge("4", "5"),
         )
 
         TaskOrchestrator(vertices, edges).start()
@@ -85,41 +70,28 @@ class TaskOrchestratorTest {
     private suspend fun demoDslUsage() {
         TaskOrchestrator.taskOrchestrator {
             addTask {
-                tag("5")
+                tag("1")
                 block { doWork(10) }
             }
             addTask {
-                tag("7")
+                tag("2")
+                dependsOn("1")
                 block { doWork(40) }
             }
             addTask {
                 tag("3")
+                dependsOn("1")
                 block { doWork(100) }
             }
             addTask {
-                tag("11")
-                dependsOn("5", "7")
+                tag("4")
+                dependsOn("2", "3")
                 block { doWork(10); }
             }
             addTask {
-                tag("8")
-                dependsOn("3", "7")
+                tag("5")
+                dependsOn("2", "4")
                 block { doWork(50) }
-            }
-            addTask {
-                tag("2")
-                dependsOn("11")
-                block { doWork(100) }
-            }
-            addTask {
-                tag("9")
-                dependsOn("8", "11")
-                block { doWork(10) }
-            }
-            addTask {
-                tag("10")
-                dependsOn("3", "11")
-                block { doWork(10) }
             }
         }.start()
     }
