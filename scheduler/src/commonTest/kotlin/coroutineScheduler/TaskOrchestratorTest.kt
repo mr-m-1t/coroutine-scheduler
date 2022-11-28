@@ -6,10 +6,12 @@ import io.github.mrm1t.coroutineScheduler.graph.DirectedEdge
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import kotlin.math.sqrt
 import kotlin.test.Test
+import kotlin.time.Duration.Companion.milliseconds
 
 @ExperimentalCoroutinesApi
 class TaskOrchestratorTest {
@@ -34,35 +36,35 @@ class TaskOrchestratorTest {
         val vertices = listOf<Task>(
             Task().apply {
                 tag = "5"
-                block = { genPrime(1_000) }
+                block = { doWork(10) }
             },
             Task().apply {
                 tag = "7"
-                block = { genPrime(400) }
+                block = { doWork(40) }
             },
             Task().apply {
                 tag = "3"
-                block = { genPrime(1_000) }
+                block = { doWork(100) }
             },
             Task().apply {
                 tag = "11"
-                block = { genPrime(1_000); }
+                block = { doWork(10); }
             },
             Task().apply {
                 tag = "8"
-                block = { genPrime(500_000) }
+                block = { doWork(50) }
             },
             Task().apply {
                 tag = "2"
-                block = { genPrime(1_000) }
+                block = { doWork(100) }
             },
             Task().apply {
                 tag = "9"
-                block = { genPrime(1_000) }
+                block = { doWork(10) }
             },
             Task().apply {
                 tag = "10"
-                block = { genPrime(1_000) }
+                block = { doWork(10) }
             }
         )
         val edges = listOf(
@@ -84,48 +86,45 @@ class TaskOrchestratorTest {
         TaskOrchestrator.taskOrchestrator {
             addTask {
                 tag("5")
-                block { genPrime(1_000) }
+                block { doWork(10) }
             }
             addTask {
                 tag("7")
-                block { genPrime(400) }
+                block { doWork(40) }
             }
             addTask {
                 tag("3")
-                block { genPrime(1_000) }
+                block { doWork(100) }
             }
             addTask {
                 tag("11")
                 dependsOn("5", "7")
-                block { genPrime(1_000); }
+                block { doWork(10); }
             }
             addTask {
                 tag("8")
                 dependsOn("3", "7")
-                block { genPrime(500_000) }
+                block { doWork(50) }
             }
             addTask {
                 tag("2")
                 dependsOn("11")
-                block { genPrime(1_000) }
+                block { doWork(100) }
             }
             addTask {
                 tag("9")
                 dependsOn("8", "11")
-                block { genPrime(1_000) }
+                block { doWork(10) }
             }
             addTask {
                 tag("10")
                 dependsOn("3", "11")
-                block { genPrime(1_000) }
+                block { doWork(10) }
             }
         }.start()
     }
 
-    private suspend fun genPrime(num: Int) = coroutineScope {
-        require(num > 0) { "There is no zeroth prime." }
-        generateSequence(1) { it + 1 }
-            .filterNot { value -> (2..sqrt(value.toDouble()).toInt()).any { value % it == 0 } }
-            .elementAt(num)
+    private suspend fun doWork(num: Int) = coroutineScope {
+        delay(num.milliseconds)
     }
 }
