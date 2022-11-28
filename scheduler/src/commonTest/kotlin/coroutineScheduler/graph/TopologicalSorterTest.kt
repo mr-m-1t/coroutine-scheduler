@@ -25,12 +25,12 @@ class TopologicalSorterTest {
         val vertices = listOf(
             IntVertex("foo", 1),
             IntVertex("bar", 1),
-            IntVertex("baz", 3)
+            IntVertex("baz", 3),
         )
         val edges = listOf(
             DirectedEdge("foo", "bar"),
             DirectedEdge("bar", "baz"),
-            DirectedEdge("baz", "bar")
+            DirectedEdge("baz", "bar"),
         )
 
         assertFailsWith<IllegalStateException> {
@@ -49,7 +49,7 @@ class TopologicalSorterTest {
             IntVertex("8", 8),
             IntVertex("2", 2),
             IntVertex("9", 9),
-            IntVertex("10", 10)
+            IntVertex("10", 10),
         )
         val edges = listOf(
             DirectedEdge("5", "11"),
@@ -60,7 +60,7 @@ class TopologicalSorterTest {
             DirectedEdge("11", "2"),
             DirectedEdge("11", "9"),
             DirectedEdge("11", "10"),
-            DirectedEdge("8", "9")
+            DirectedEdge("8", "9"),
         )
 
         val sortedVertices = sut.performTopologicalSort(vertices, edges)

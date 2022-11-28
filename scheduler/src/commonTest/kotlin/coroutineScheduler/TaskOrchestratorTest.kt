@@ -9,7 +9,6 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
-import kotlin.math.sqrt
 import kotlin.test.Test
 import kotlin.time.Duration.Companion.milliseconds
 

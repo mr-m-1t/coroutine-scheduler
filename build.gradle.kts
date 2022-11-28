@@ -23,7 +23,8 @@ configure<com.diffplug.gradle.spotless.SpotlessExtension> {
             .setUseExperimental(true)
             .editorConfigOverride(
                 mapOf(
-                    "ij_kotlin_allow_trailing_comma" to true
+                    "ij_kotlin_allow_trailing_comma" to true,
+                    "ij_kotlin_allow_trailing_comma_on_call_site" to true,
                 )
             )
     }
