@@ -32,7 +32,7 @@ class TaskOrchestratorTest {
     }
 
     private suspend fun demoDirectUsage() {
-        val vertices = listOf<Task>(
+        val vertices = listOf(
             Task().apply {
                 tag = "1"
                 block = { doWork(10) }

@@ -8,7 +8,6 @@ plugins {
 // TODO: publish to maven central
 // TODO: publish docs
 // TODO: Add logging?
-// TODO: create DSL?
 
 allprojects {
     repositories {
