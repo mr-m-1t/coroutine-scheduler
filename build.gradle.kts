@@ -6,8 +6,8 @@ plugins {
 // TODO: setup CI using GitHub actions
 // TODO: Add dokka
 // TODO: publish to maven central
+// TODO: write documentation (integration, usage, examples)
 // TODO: publish docs
-// TODO: Add logging?
 
 allprojects {
     repositories {

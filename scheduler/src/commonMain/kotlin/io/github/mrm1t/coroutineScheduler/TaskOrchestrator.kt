@@ -14,9 +14,7 @@ class TaskOrchestrator(
     private var tasks: List<Task> = emptyList(),
     private var taskDependencies: List<DirectedEdge> = emptyList(),
 ) {
-    // TODO:
-    //  since child coroutine failures do not cause scope to fail
-    //  figure out how to communicate failures to consumer
+
     suspend fun start() = supervisorScope {
         val sortedTasks = TopologicalSorter().performTopologicalSort(vertices = tasks, edges = taskDependencies)
         sortedTasks.forEach { task ->
@@ -24,12 +22,9 @@ class TaskOrchestrator(
             val preReqs = sortedTasks.filter { preReqTags.contains(it.tag) }.map { it.jobWaitingForDependentTasks }
 
             task.jobWaitingForDependentTasks = async(this.coroutineContext + CoroutineName(task.tag), CoroutineStart.LAZY) {
-                println("${task.tag} is waiting for ${preReqs.size} jobs ($preReqTags)")
                 try {
                     preReqs.awaitAll()
-                    val now = Clock.System.now()
                     task.block()
-                    println("${task.tag} completed in ${Clock.System.now() - now}")
                 } catch (e: CancellationException) {
                     println("${task.tag} failed due to $e")
                     throw e
@@ -37,9 +32,7 @@ class TaskOrchestrator(
             }
         }
 
-        println("All ${sortedTasks.size} tasks started in $this")
         sortedTasks.map { it.jobWaitingForDependentTasks }.awaitAll()
-        println("All ${sortedTasks.size} tasks started in $this have completed")
     }
 
     fun addTask(init: Task.() -> Task): TaskOrchestrator {
