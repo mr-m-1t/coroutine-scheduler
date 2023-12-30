@@ -4,7 +4,7 @@ interface TaskOrchestrator<T: Any> {
 
     /**
      * Begin executing tasks
-     * TODO: this should return the launched coroutine
+     * This function returns once all tasks are executed
      */
     suspend fun start()
 
