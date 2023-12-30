@@ -35,14 +35,15 @@ class TaskOrchestrator<T: Any>(
             sortedTasks.map { it.jobWaitingForDependentTasks }.awaitAll()
         }
 
-    fun addTask(init: Task<T>.() -> Task<T>): TaskOrchestrator<T> {
-        val job = init(Task())
+    fun addTask(init: Task<T>.() -> Unit) {
+        val job = Task<T>().apply(init)
         this.tasks += job
         this.taskDependencies += job.dependsOn.map { DirectedEdge(it, job.tag) }
-        return this
     }
 
     companion object {
-        fun <T: Any> taskOrchestrator(init: TaskOrchestrator<T>.() -> TaskOrchestrator<T>) = init(TaskOrchestrator(emptyList(), emptyList()))
+        fun <T: Any> taskOrchestrator(init: TaskOrchestrator<T>.() -> Unit): TaskOrchestrator<T> {
+            return TaskOrchestrator<T>(emptyList(), emptyList()).apply(init)
+        }
     }
 }
