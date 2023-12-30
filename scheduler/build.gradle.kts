@@ -5,7 +5,9 @@ plugins {
 
 kotlin {
     // TODO: add other targets?
-    ios()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
     js {
         nodejs()
         // doesn't see firefox installed as a snap
@@ -14,13 +16,13 @@ kotlin {
     jvm()
 
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 implementation(libs.coroutines.core)
                 implementation(libs.kotlin.datetime)
             }
         }
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(libs.coroutines.test)
                 implementation(libs.kotlin.test)
