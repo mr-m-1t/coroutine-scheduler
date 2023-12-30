@@ -9,7 +9,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.supervisorScope
 
-class TaskOrchestratorImpl<T: Any>(
+internal class TaskOrchestratorImpl<T: Any>(
     private var tasks: List<TaskImpl<T>> = emptyList(),
     private var taskDependencies: List<DirectedEdge<T>> = emptyList(),
 ): TaskOrchestrator<T> {

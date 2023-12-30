@@ -4,7 +4,7 @@ plugins {
 }
 
 kotlin {
-//    explicitApi()
+    explicitApi()
 
     androidTarget()
     iosX64()
@@ -31,7 +31,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(libs.coroutines.core)
+                api(libs.coroutines.core)
             }
         }
         commonTest {
