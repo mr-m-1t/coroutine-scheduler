@@ -1,4 +1,3 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.spotless)
     // this is necessary to avoid the plugins to be loaded multiple times in each subproject's classloader
