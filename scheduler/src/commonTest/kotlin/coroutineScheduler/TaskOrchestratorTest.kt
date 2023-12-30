@@ -24,7 +24,7 @@ class TaskOrchestratorTest {
 
 
     private suspend fun demoDslUsage() {
-        TaskOrchestrator.taskOrchestrator<String> {
+        TaskOrchestrator.taskOrchestrator {
             addTask("1") {
                 block { doWork(10) }
             }

@@ -17,7 +17,7 @@ internal class TaskOrchestratorImpl<T: Any>(
         supervisorScope {
             val sortedTasks = TopologicalSorter().performTopologicalSort(vertices = tasks, edges = taskDependencies)
             sortedTasks.forEach { task ->
-                val preReqTags = taskDependencies.filter { it.destTag == task.tag }.map { it.sourceTag }
+                val preReqTags = taskDependencies.filter { it.destinationTag == task.tag }.map { it.sourceTag }
                 val preReqs = sortedTasks.filter { preReqTags.contains(it.tag) }.map { it.jobWaitingForDependentTasks }
 
                 task.jobWaitingForDependentTasks =
@@ -36,7 +36,7 @@ internal class TaskOrchestratorImpl<T: Any>(
         }
 
     override fun addTask(tag: T, init: Task<T>.() -> Unit) {
-        val job = TaskImpl<T>(tag).apply(init)
+        val job = TaskImpl(tag).apply(init)
         this.tasks += job
         this.taskDependencies += job.dependsOn.map { DirectedEdge(it, job.tag) }
     }

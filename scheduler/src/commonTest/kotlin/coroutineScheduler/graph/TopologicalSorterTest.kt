@@ -69,9 +69,9 @@ class TopologicalSorterTest {
 
         val sortedVertices = sut.performTopologicalSort(vertices, edges)
         edges.forEach { edge ->
-            assertTrue("item with tag `${edge.sourceTag}` should be before item with tag `${edge.destTag}`!") {
+            assertTrue("item with tag `${edge.sourceTag}` should be before item with tag `${edge.destinationTag}`!") {
                 sortedVertices.indexOfFirst { it.tag == edge.sourceTag } <
-                    sortedVertices.indexOfFirst { it.tag == edge.destTag }
+                    sortedVertices.indexOfFirst { it.tag == edge.destinationTag }
             }
         }
     }

@@ -22,7 +22,7 @@ internal class TopologicalSorter {
         val verticesInGraph = vertices.toMutableList()
 
         verticesInGraph
-            .filter { v -> edges.none { e -> e.destTag == v.tag } }
+            .filter { v -> edges.none { e -> e.destinationTag == v.tag } }
             .forEach {
                 verticesWithNoIncoming.add(it)
                 verticesInGraph.remove(it)
@@ -39,7 +39,7 @@ internal class TopologicalSorter {
             edgesRemainingInGraph.removeAll { it.sourceTag == vertex.tag }
 
             verticesInGraph
-                .filter { v -> edgesRemainingInGraph.none { e -> e.destTag == v.tag } }
+                .filter { v -> edgesRemainingInGraph.none { e -> e.destinationTag == v.tag } }
                 .forEach {
                     verticesWithNoIncoming.add(it)
                     verticesInGraph.remove(it)
