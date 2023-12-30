@@ -18,15 +18,12 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(libs.coroutines.core)
-                implementation(libs.kotlin.datetime)
             }
         }
         commonTest {
             dependencies {
                 implementation(libs.coroutines.test)
-                implementation(libs.kotlin.test)
-                implementation(libs.kotlin.test.common)
-                implementation(libs.kotlin.test.annotations.common)
+                implementation(kotlin("test"))
             }
         }
     }
