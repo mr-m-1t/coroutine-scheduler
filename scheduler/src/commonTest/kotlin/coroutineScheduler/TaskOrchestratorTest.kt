@@ -2,6 +2,7 @@ package coroutineScheduler
 
 import io.github.mrm1t.coroutineScheduler.TaskImpl
 import io.github.mrm1t.coroutineScheduler.TaskOrchestrator
+import io.github.mrm1t.coroutineScheduler.TaskOrchestratorImpl
 import io.github.mrm1t.coroutineScheduler.graph.DirectedEdge
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -68,7 +69,7 @@ class TaskOrchestratorTest {
                 DirectedEdge("4", "5"),
             )
 
-        TaskOrchestrator(vertices, edges).start()
+        TaskOrchestratorImpl(vertices, edges).start()
     }
 
     private suspend fun demoDslUsage() {
