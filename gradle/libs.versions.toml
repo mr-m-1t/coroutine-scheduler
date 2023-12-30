@@ -1,4 +1,7 @@
 [versions]
+android_compileSdk = "34"
+android_minSdk = "24"
+android_targetSdk = "34"
 kotlin = "1.9.22"
 coroutines = "1.7.3"
 
@@ -9,5 +12,6 @@ coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-
 [bundles]
 
 [plugins]
+android_library = { id = "com.android.library", version = "8.1.4" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version = "6.23.3" }
