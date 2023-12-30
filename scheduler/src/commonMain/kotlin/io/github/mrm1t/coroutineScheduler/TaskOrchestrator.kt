@@ -10,9 +10,8 @@ interface TaskOrchestrator<T: Any> {
 
     /**
      * Add a task
-     * TODO: this should force a tag to be set
      */
-    fun addTask(init: Task<T>.() -> Unit)
+    fun addTask(tag: T, init: Task<T>.() -> Unit)
 
     companion object {
         /**

@@ -3,16 +3,13 @@ package io.github.mrm1t.coroutineScheduler
 import io.github.mrm1t.coroutineScheduler.graph.Vertex
 import kotlinx.coroutines.Deferred
 
-class TaskImpl<T: Any> : Task<T>, Vertex<T> {
-    override lateinit var tag: T
+class TaskImpl<T: Any>(
+    override val tag: T,
+) : Task<T>, Vertex<T> {
     lateinit var block: suspend () -> Unit
     lateinit var jobWaitingForDependentTasks: Deferred<Unit>
 
     var dependsOn: List<T> = emptyList()
-
-    override fun tag(tag: T) {
-        this.tag = tag
-    }
 
     override fun dependsOn(vararg tags: T) {
         dependsOn += tags

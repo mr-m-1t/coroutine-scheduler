@@ -35,8 +35,8 @@ class TaskOrchestratorImpl<T: Any>(
             sortedTasks.map { it.jobWaitingForDependentTasks }.awaitAll()
         }
 
-    override fun addTask(init: Task<T>.() -> Unit) {
-        val job = TaskImpl<T>().apply(init)
+    override fun addTask(tag: T, init: Task<T>.() -> Unit) {
+        val job = TaskImpl<T>(tag).apply(init)
         this.tasks += job
         this.taskDependencies += job.dependsOn.map { DirectedEdge(it, job.tag) }
     }
