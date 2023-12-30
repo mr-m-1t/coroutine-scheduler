@@ -1,6 +1,6 @@
 package coroutineScheduler
 
-import io.github.mrm1t.coroutineScheduler.Task
+import io.github.mrm1t.coroutineScheduler.TaskImpl
 import io.github.mrm1t.coroutineScheduler.TaskOrchestrator
 import io.github.mrm1t.coroutineScheduler.graph.DirectedEdge
 import kotlinx.coroutines.Dispatchers
@@ -35,25 +35,25 @@ class TaskOrchestratorTest {
     private suspend fun demoDirectUsage() {
         val vertices =
             listOf(
-                Task<String>().apply {
+                TaskImpl<String>().apply {
                     tag = "1"
                     block = { doWork(10) }
                 },
-                Task<String>().apply {
+                TaskImpl<String>().apply {
                     tag = "2"
                     block = { doWork(40) }
                 },
-                Task<String>().apply {
+                TaskImpl<String>().apply {
                     tag = "3"
                     block = { doWork(100) }
                 },
-                Task<String>().apply {
+                TaskImpl<String>().apply {
                     tag = "4"
                     block = {
                         doWork(10)
                     }
                 },
-                Task<String>().apply {
+                TaskImpl<String>().apply {
                     tag = "5"
                     block = { doWork(50) }
                 },

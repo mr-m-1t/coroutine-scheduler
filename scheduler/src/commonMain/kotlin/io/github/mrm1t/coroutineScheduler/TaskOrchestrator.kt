@@ -10,7 +10,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.supervisorScope
 
 class TaskOrchestrator<T: Any>(
-    private var tasks: List<Task<T>> = emptyList(),
+    private var tasks: List<TaskImpl<T>> = emptyList(),
     private var taskDependencies: List<DirectedEdge<T>> = emptyList(),
 ) {
     suspend fun start() =
@@ -36,7 +36,7 @@ class TaskOrchestrator<T: Any>(
         }
 
     fun addTask(init: Task<T>.() -> Unit) {
-        val job = Task<T>().apply(init)
+        val job = TaskImpl<T>().apply(init)
         this.tasks += job
         this.taskDependencies += job.dependsOn.map { DirectedEdge(it, job.tag) }
     }
