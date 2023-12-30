@@ -4,6 +4,8 @@ plugins {
 }
 
 kotlin {
+//    explicitApi()
+
     androidTarget()
     iosX64()
     iosArm64()

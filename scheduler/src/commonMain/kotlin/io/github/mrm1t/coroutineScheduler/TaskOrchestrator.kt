@@ -9,9 +9,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.supervisorScope
 
-class TaskOrchestrator(
-    private var tasks: List<Task> = emptyList(),
-    private var taskDependencies: List<DirectedEdge> = emptyList(),
+class TaskOrchestrator<T: Any>(
+    private var tasks: List<Task<T>> = emptyList(),
+    private var taskDependencies: List<DirectedEdge<T>> = emptyList(),
 ) {
     suspend fun start() =
         supervisorScope {
@@ -21,7 +21,7 @@ class TaskOrchestrator(
                 val preReqs = sortedTasks.filter { preReqTags.contains(it.tag) }.map { it.jobWaitingForDependentTasks }
 
                 task.jobWaitingForDependentTasks =
-                    async(this.coroutineContext + CoroutineName(task.tag), CoroutineStart.LAZY) {
+                    async(this.coroutineContext + CoroutineName(task.tag.toString()), CoroutineStart.LAZY) {
                         try {
                             preReqs.awaitAll()
                             task.block()
@@ -35,7 +35,7 @@ class TaskOrchestrator(
             sortedTasks.map { it.jobWaitingForDependentTasks }.awaitAll()
         }
 
-    fun addTask(init: Task.() -> Task): TaskOrchestrator {
+    fun addTask(init: Task<T>.() -> Task<T>): TaskOrchestrator<T> {
         val job = init(Task())
         this.tasks += job
         this.taskDependencies += job.dependsOn.map { DirectedEdge(it, job.tag) }
@@ -43,6 +43,6 @@ class TaskOrchestrator(
     }
 
     companion object {
-        fun taskOrchestrator(init: TaskOrchestrator.() -> TaskOrchestrator) = init(TaskOrchestrator(emptyList(), emptyList()))
+        fun <T: Any> taskOrchestrator(init: TaskOrchestrator<T>.() -> TaskOrchestrator<T>) = init(TaskOrchestrator(emptyList(), emptyList()))
     }
 }

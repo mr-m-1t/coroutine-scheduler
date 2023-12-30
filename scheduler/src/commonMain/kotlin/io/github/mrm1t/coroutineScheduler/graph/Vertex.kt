@@ -1,5 +1,5 @@
 package io.github.mrm1t.coroutineScheduler.graph
 
-interface Vertex {
-    val tag: String
+interface Vertex<T: Any> {
+    val tag: T
 }

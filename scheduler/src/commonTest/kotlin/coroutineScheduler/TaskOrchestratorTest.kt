@@ -35,25 +35,25 @@ class TaskOrchestratorTest {
     private suspend fun demoDirectUsage() {
         val vertices =
             listOf(
-                Task().apply {
+                Task<String>().apply {
                     tag = "1"
                     block = { doWork(10) }
                 },
-                Task().apply {
+                Task<String>().apply {
                     tag = "2"
                     block = { doWork(40) }
                 },
-                Task().apply {
+                Task<String>().apply {
                     tag = "3"
                     block = { doWork(100) }
                 },
-                Task().apply {
+                Task<String>().apply {
                     tag = "4"
                     block = {
                         doWork(10)
                     }
                 },
-                Task().apply {
+                Task<String>().apply {
                     tag = "5"
                     block = { doWork(50) }
                 },

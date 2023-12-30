@@ -12,7 +12,7 @@ class TopologicalSorterTest {
 
     @Test
     fun givenCyclicGraphWithNoRootNodesWhenPerformTopologicalSortThenThrowException() {
-        val vertices = listOf(IntVertex("foo", 1), IntVertex("bar", 1))
+        val vertices = listOf(BasicVertex("foo"), BasicVertex("bar"))
         val edges = listOf(DirectedEdge("foo", "bar"), DirectedEdge("bar", "foo"))
 
         assertFailsWith<IllegalArgumentException> {
@@ -24,9 +24,9 @@ class TopologicalSorterTest {
     fun givenCyclicGraphWithRootNodeWhenPerformTopologicalSortThenThrowException() {
         val vertices =
             listOf(
-                IntVertex("foo", 1),
-                IntVertex("bar", 1),
-                IntVertex("baz", 3),
+                BasicVertex("foo"),
+                BasicVertex("bar"),
+                BasicVertex("baz"),
             )
         val edges =
             listOf(
@@ -45,14 +45,14 @@ class TopologicalSorterTest {
         // example from https://en.wikipedia.org/wiki/Topological_sorting
         val vertices =
             listOf(
-                IntVertex("5", 5),
-                IntVertex("7", 7),
-                IntVertex("3", 3),
-                IntVertex("11", 11),
-                IntVertex("8", 8),
-                IntVertex("2", 2),
-                IntVertex("9", 9),
-                IntVertex("10", 10),
+                BasicVertex("5"),
+                BasicVertex("7"),
+                BasicVertex("3"),
+                BasicVertex("11"),
+                BasicVertex("8"),
+                BasicVertex("2"),
+                BasicVertex("9"),
+                BasicVertex("10"),
             )
         val edges =
             listOf(
@@ -76,5 +76,5 @@ class TopologicalSorterTest {
         }
     }
 
-    private inner class IntVertex(override val tag: String, val value: Int) : Vertex
+    private inner class BasicVertex(override val tag: String) : Vertex<String>
 }

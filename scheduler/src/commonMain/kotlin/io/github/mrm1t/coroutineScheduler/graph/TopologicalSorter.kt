@@ -12,9 +12,9 @@ class TopologicalSorter {
      * @throws[IllegalArgumentException] if the given graph has no vertices with in-degree of 0
      * @throws[IllegalStateException] if the given graph has a cycle
      */
-    fun <T : Vertex> performTopologicalSort(
+    fun <V: Any, T : Vertex<V>> performTopologicalSort(
         vertices: List<T>,
-        edges: List<DirectedEdge>,
+        edges: List<DirectedEdge<V>>,
     ): List<T> {
         val sortedVertices = mutableListOf<T>()
         val verticesWithNoIncoming = mutableListOf<T>()
