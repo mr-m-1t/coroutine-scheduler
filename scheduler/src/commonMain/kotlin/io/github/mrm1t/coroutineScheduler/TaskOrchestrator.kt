@@ -8,32 +8,32 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.supervisorScope
-import kotlinx.datetime.Clock
 
 class TaskOrchestrator(
     private var tasks: List<Task> = emptyList(),
     private var taskDependencies: List<DirectedEdge> = emptyList(),
 ) {
+    suspend fun start() =
+        supervisorScope {
+            val sortedTasks = TopologicalSorter().performTopologicalSort(vertices = tasks, edges = taskDependencies)
+            sortedTasks.forEach { task ->
+                val preReqTags = taskDependencies.filter { it.destTag == task.tag }.map { it.sourceTag }
+                val preReqs = sortedTasks.filter { preReqTags.contains(it.tag) }.map { it.jobWaitingForDependentTasks }
 
-    suspend fun start() = supervisorScope {
-        val sortedTasks = TopologicalSorter().performTopologicalSort(vertices = tasks, edges = taskDependencies)
-        sortedTasks.forEach { task ->
-            val preReqTags = taskDependencies.filter { it.destTag == task.tag }.map { it.sourceTag }
-            val preReqs = sortedTasks.filter { preReqTags.contains(it.tag) }.map { it.jobWaitingForDependentTasks }
-
-            task.jobWaitingForDependentTasks = async(this.coroutineContext + CoroutineName(task.tag), CoroutineStart.LAZY) {
-                try {
-                    preReqs.awaitAll()
-                    task.block()
-                } catch (e: CancellationException) {
-                    println("${task.tag} failed due to $e")
-                    throw e
-                }
+                task.jobWaitingForDependentTasks =
+                    async(this.coroutineContext + CoroutineName(task.tag), CoroutineStart.LAZY) {
+                        try {
+                            preReqs.awaitAll()
+                            task.block()
+                        } catch (e: CancellationException) {
+                            println("${task.tag} failed due to $e")
+                            throw e
+                        }
+                    }
             }
-        }
 
-        sortedTasks.map { it.jobWaitingForDependentTasks }.awaitAll()
-    }
+            sortedTasks.map { it.jobWaitingForDependentTasks }.awaitAll()
+        }
 
     fun addTask(init: Task.() -> Task): TaskOrchestrator {
         val job = init(Task())

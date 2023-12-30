@@ -18,13 +18,6 @@ allprojects {
 configure<com.diffplug.gradle.spotless.SpotlessExtension> {
     kotlin {
         target("*/src/**/*.kt")
-        ktlint("0.47.1")
-            .setUseExperimental(true)
-            .editorConfigOverride(
-                mapOf(
-                    "ij_kotlin_allow_trailing_comma" to true,
-                    "ij_kotlin_allow_trailing_comma_on_call_site" to true,
-                )
-            )
+        ktlint("1.1.0")
     }
 }

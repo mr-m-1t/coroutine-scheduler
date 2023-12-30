@@ -1,7 +1,6 @@
 package io.github.mrm1t.coroutineScheduler.graph
 
 class TopologicalSorter {
-
     /**
      * Performs a topological sort of the given graph using Kuhn's algorithm.
      *

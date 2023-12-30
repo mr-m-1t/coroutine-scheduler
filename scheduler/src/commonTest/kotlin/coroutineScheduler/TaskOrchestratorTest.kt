@@ -14,54 +14,59 @@ import kotlin.time.Duration.Companion.milliseconds
 
 @ExperimentalCoroutinesApi
 class TaskOrchestratorTest {
+    @Test
+    fun sampleTestDemonstratingDirectUsageMultiThreaded() =
+        runTest {
+            // specifying a dispatcher since the default one is single-threaded
+            launch(Dispatchers.Default) {
+                demoDirectUsage()
+            }.join()
+        }
 
     @Test
-    fun sampleTestDemonstratingDirectUsageMultiThreaded() = runTest {
-        // specifying a dispatcher since the default one is single-threaded
-        launch(Dispatchers.Default) {
-            demoDirectUsage()
-        }.join()
-    }
-
-    @Test
-    fun sampleTestDemonstratingDslUsageMultiThreaded() = runTest {
-        // specifying a dispatcher since the default one is single-threaded
-        launch(Dispatchers.Default) {
-            demoDslUsage()
-        }.join()
-    }
+    fun sampleTestDemonstratingDslUsageMultiThreaded() =
+        runTest {
+            // specifying a dispatcher since the default one is single-threaded
+            launch(Dispatchers.Default) {
+                demoDslUsage()
+            }.join()
+        }
 
     private suspend fun demoDirectUsage() {
-        val vertices = listOf(
-            Task().apply {
-                tag = "1"
-                block = { doWork(10) }
-            },
-            Task().apply {
-                tag = "2"
-                block = { doWork(40) }
-            },
-            Task().apply {
-                tag = "3"
-                block = { doWork(100) }
-            },
-            Task().apply {
-                tag = "4"
-                block = { doWork(10); }
-            },
-            Task().apply {
-                tag = "5"
-                block = { doWork(50) }
-            },
-        )
-        val edges = listOf(
-            DirectedEdge("1", "2"),
-            DirectedEdge("1", "3"),
-            DirectedEdge("2", "4"),
-            DirectedEdge("3", "4"),
-            DirectedEdge("2", "5"),
-            DirectedEdge("4", "5"),
-        )
+        val vertices =
+            listOf(
+                Task().apply {
+                    tag = "1"
+                    block = { doWork(10) }
+                },
+                Task().apply {
+                    tag = "2"
+                    block = { doWork(40) }
+                },
+                Task().apply {
+                    tag = "3"
+                    block = { doWork(100) }
+                },
+                Task().apply {
+                    tag = "4"
+                    block = {
+                        doWork(10)
+                    }
+                },
+                Task().apply {
+                    tag = "5"
+                    block = { doWork(50) }
+                },
+            )
+        val edges =
+            listOf(
+                DirectedEdge("1", "2"),
+                DirectedEdge("1", "3"),
+                DirectedEdge("2", "4"),
+                DirectedEdge("3", "4"),
+                DirectedEdge("2", "5"),
+                DirectedEdge("4", "5"),
+            )
 
         TaskOrchestrator(vertices, edges).start()
     }
@@ -85,7 +90,9 @@ class TaskOrchestratorTest {
             addTask {
                 tag("4")
                 dependsOn("2", "3")
-                block { doWork(10); }
+                block {
+                    doWork(10)
+                }
             }
             addTask {
                 tag("5")
@@ -95,7 +102,8 @@ class TaskOrchestratorTest {
         }.start()
     }
 
-    private suspend fun doWork(num: Int) = coroutineScope {
-        delay(num.milliseconds)
-    }
+    private suspend fun doWork(num: Int) =
+        coroutineScope {
+            delay(num.milliseconds)
+        }
 }
