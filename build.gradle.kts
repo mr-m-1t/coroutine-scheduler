@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.test.logger)
 }
 
-// TODO: setup CI using GitHub actions
 // TODO: Add & publish dokka?
 // TODO: publish to maven central
 //  https://madhead.me/posts/no-bullshit-maven-publish/
