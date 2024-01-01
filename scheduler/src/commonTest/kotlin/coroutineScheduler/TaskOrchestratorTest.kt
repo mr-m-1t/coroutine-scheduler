@@ -12,7 +12,6 @@ import kotlin.time.Duration.Companion.milliseconds
 
 @ExperimentalCoroutinesApi
 class TaskOrchestratorTest {
-
     @Test
     fun sampleTestDemonstratingDslUsageMultiThreaded() =
         runTest {
@@ -21,7 +20,6 @@ class TaskOrchestratorTest {
                 demoDslUsage()
             }.join()
         }
-
 
     private suspend fun demoDslUsage() {
         TaskOrchestrator.taskOrchestrator {
