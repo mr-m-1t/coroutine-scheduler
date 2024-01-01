@@ -6,10 +6,12 @@ plugins {
 }
 
 // TODO: setup CI using GitHub actions
-// TODO: Add dokka
+// TODO: Add & publish dokka?
 // TODO: publish to maven central
-// TODO: write documentation (integration, usage, examples)
-// TODO: publish docs
+//  https://madhead.me/posts/no-bullshit-maven-publish/
+//  https://docs.github.com/en/actions/publishing-packages/publishing-java-packages-with-gradle
+// TODO: setup semantic releases
+// TODO: rename module to `coroutine-scheduler`, also packages
 
 allprojects {
     repositories {
