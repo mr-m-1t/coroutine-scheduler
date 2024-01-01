@@ -3,6 +3,7 @@ plugins {
     // this is necessary to avoid the plugins to be loaded multiple times in each subproject's classloader
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.test.logger)
 }
 
 // TODO: setup CI using GitHub actions
@@ -30,5 +31,13 @@ subprojects {
     // make linting a prerequisite for building, so we don't forget it
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.BaseKotlinCompile> {
         dependsOn(":spotlessApply")
+    }
+
+    // version is determined by the root `plugins` block above
+    apply(plugin = "com.adarshr.test-logger")
+    testlogger {
+        showSimpleNames = true
+        slowThreshold = 100
+        setTheme("standard")
     }
 }
