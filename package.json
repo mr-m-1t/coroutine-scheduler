@@ -1,0 +1,17 @@
+{
+  "name": "@mr-m-1t/coroutine-scheduler",
+  "description": "config for semantic release",
+  "license": "LGPL-3.0-or-later",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mr-m-1t/coroutine-scheduler"
+  },
+  "dependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "gradle-semantic-release-plugin": "^1.9.0",
+    "semantic-release": "^22.0.12"
+  }
+}
