@@ -7,4 +7,4 @@ pluginManagement {
 }
 
 rootProject.name = "coroutine-scheduler"
-include(":scheduler")
+include(":coroutineScheduler")

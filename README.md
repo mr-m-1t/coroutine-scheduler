@@ -16,7 +16,7 @@ Add this library to your project, same as any other:
 ```kts
 // build.gradle.kts
 dependencies {
-    implementation("io.github.mrm1t:scheduler:1.0.0")
+    implementation("io.github.mrm1t:coroutineScheduler:1.0.0")
 }
 ```
 
