@@ -1,0 +1,45 @@
+---
+name: KMP library compilation check
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - master
+  # TODO: remove this after testing
+  push:
+    branches:
+      - master
+
+jobs:
+  build-library:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      - name: Setup Gradle
+        # https://github.com/gradle/gradle-build-action
+        uses: gradle/gradle-build-action@v2
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/master' }}
+
+      - name: Lint
+        run: ./gradlew spotlessCheck
+
+      - name: Unit tests
+        run: ./gradlew jvmTest
+
+  publish-dry-run:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: npm install
+        # https://github.com/actions/setup-node
+        uses: actions/setup-node@v4
+
+      - name: dry run
+        run: echo "hello there"
