@@ -1,7 +1,6 @@
 package io.github.mrm1t.coroutineScheduler
 
-public interface Task<T: Any> {
-
+public interface Task<T : Any> {
     /**
      * Add dependencies which must be completed before executing this task
      */

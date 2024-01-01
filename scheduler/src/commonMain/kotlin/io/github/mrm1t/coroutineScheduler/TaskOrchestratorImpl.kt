@@ -9,10 +9,10 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.supervisorScope
 
-internal class TaskOrchestratorImpl<T: Any>(
+internal class TaskOrchestratorImpl<T : Any>(
     private var tasks: List<TaskImpl<T>> = emptyList(),
     private var taskDependencies: List<DirectedEdge<T>> = emptyList(),
-): TaskOrchestrator<T> {
+) : TaskOrchestrator<T> {
     override suspend fun start(): Unit =
         supervisorScope {
             val sortedTasks = TopologicalSorter().performTopologicalSort(vertices = tasks, edges = taskDependencies)
@@ -35,7 +35,10 @@ internal class TaskOrchestratorImpl<T: Any>(
             sortedTasks.map { it.jobWaitingForDependentTasks }.awaitAll()
         }
 
-    override fun addTask(tag: T, init: Task<T>.() -> Unit) {
+    override fun addTask(
+        tag: T,
+        init: Task<T>.() -> Unit,
+    ) {
         val job = TaskImpl(tag).apply(init)
         this.tasks += job
         this.taskDependencies += job.dependsOn.map { DirectedEdge(it, job.tag) }
