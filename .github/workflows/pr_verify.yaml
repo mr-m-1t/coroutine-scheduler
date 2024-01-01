@@ -20,6 +20,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 17
+          distribution: corretto
 
       - name: Setup Gradle
         # https://github.com/gradle/gradle-build-action
