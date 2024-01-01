@@ -14,16 +14,16 @@ jobs:
   build-library:
     runs-on: macOS-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v4
         with:
           java-version: 17
 
       - name: Setup Gradle
         # https://github.com/gradle/gradle-build-action
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v2.11.1
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/master' }}
 
@@ -36,10 +36,10 @@ jobs:
   publish-dry-run:
     runs-on: macOS-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - name: npm install
         # https://github.com/actions/setup-node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4.0.1
 
       - name: dry run
         run: echo "hello there"
