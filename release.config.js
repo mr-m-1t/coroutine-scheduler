@@ -18,7 +18,7 @@ const config = {
     ["@semantic-release/git", {
       assets: [ "./*.md", "./**/*/.md", "gradle.properties" ],
     }],
-    "gradle-semantic-release-plugin",
+    process.env.PUBLISH_DRY_RUN == true ? [] : "gradle-semantic-release-plugin",
   ],
   dryRun: process.env.PUBLISH_DRY_RUN == true,
 }
