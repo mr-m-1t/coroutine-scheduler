@@ -20,7 +20,7 @@ const config = {
     ["@semantic-release/git", {
       assets: [ "./*.md", "./**/*/.md", "gradle.properties" ],
     }],
-    isDryRun ? [] : "gradle-semantic-release-plugin",
+    ...isDryRun ? [] : "gradle-semantic-release-plugin",
   ],
   dryRun: isDryRun,
 }
