@@ -1,3 +1,5 @@
+const isDryRun = process.env.PUBLISH_DRY_RUN === 'true'
+
 const config = {
   tagFormat: "${version}",
   plugins: [
@@ -18,9 +20,9 @@ const config = {
     ["@semantic-release/git", {
       assets: [ "./*.md", "./**/*/.md", "gradle.properties" ],
     }],
-    process.env.PUBLISH_DRY_RUN == true ? [] : "gradle-semantic-release-plugin",
+    isDryRun ? [] : "gradle-semantic-release-plugin",
   ],
-  dryRun: process.env.PUBLISH_DRY_RUN == true,
+  dryRun: isDryRun,
 }
 
 module.exports = config
