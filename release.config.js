@@ -1,4 +1,4 @@
-export const config = {
+const config = {
   tagFormat: "${version}",
   plugins: [
     // default plugins
@@ -22,3 +22,5 @@ export const config = {
   ],
   dryRun: process.env.PUBLISH_DRY_RUN == true,
 }
+
+module.exports = config
