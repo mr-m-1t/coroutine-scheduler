@@ -12,6 +12,7 @@ plugins {
 //  https://docs.github.com/en/actions/publishing-packages/publishing-java-packages-with-gradle
 // TODO: setup semantic releases
 // TODO: rename module to `coroutine-scheduler`, also packages
+// TODO: setup gradle build scans
 
 allprojects {
     repositories {
